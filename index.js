@@ -12,7 +12,10 @@ const {productRouter} = require("./routes/products.route.js")
 //const {authen}   =  require("./middleware/editorauth.js")
 
 const {ProductModel} = require("./model/products.model")
+const cors = require('cors')
 
+ 
+app.use(cors())
 app.use(express.json())
 
 app.get("/",async(req,res)=>{
