@@ -69,6 +69,7 @@ adminRouter.post("/login",async(req,res)=>{
 
         }
     } catch (error) {
+        console.log(error)
         res.send({"msg":"Something went wrong, please try again later"})
     }
 })
