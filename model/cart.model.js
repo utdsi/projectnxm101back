@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 
 const cartSchema = mongoose.Schema({
     logo:{
-        data:Buffer,
+        
         contentType:String
     },
     

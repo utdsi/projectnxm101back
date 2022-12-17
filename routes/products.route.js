@@ -51,6 +51,9 @@ productRouter.post("/post",async (req,res)=>{
     const product_admin = new ProductModel(payload)
 
         await product_admin.save()
+        console.log(product_admin)
+
+        res.send("product added successfully")
     } catch (error) {
         res.send("error in posting the data")
         console.log(error)
