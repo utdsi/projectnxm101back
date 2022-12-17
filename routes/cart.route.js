@@ -1,6 +1,5 @@
 
 const express =  require("express")
-const multer = require("multer")
 const jwt = require("jsonwebtoken")
 
 const cartRouter = express.Router()
@@ -8,16 +7,7 @@ const cartRouter = express.Router()
 const {CartModel} = require("../model/cart.model.js")
 
 
-const Storage = multer.diskStorage({
-    destination:'uploads',
-    filename:(req,file,cb)=>{
-        cb(null,Date.now+file.originalname)
-    }
-})
 
-const upload = multer({
-    storage:Storage
-}).single('logo')
 
 const authentication = (req,res,next)=>{
     const token = req.headers?.authorization.split(" ")[1]
@@ -48,37 +38,36 @@ cartRouter.get("/",async(req,res)=>{
 
 
 
-cartRouter.post("/post",async (req,res)=>{
+// cartRouter.post("/post",async (req,res)=>{
 
-    try {
+//     try {
         
-        const Userid= req.body.Userid
+//         const Userid= req.body.Userid
 
-            upload(req,res,async(err)=>{
+//             upload(req,res,async(err)=>{
 
-                if(err){
-                    console.log(err)
-                }else{
-                    const new_cart = new CartModel({
-                     logo:{
-                        data:req.file.filename,
-                        contentType:'image/png'
-        
-                     },
+//                 if(err){
+//                     console.log(err)
+//                 }else{
+//                     const new_cart = new CartModel({
+//                      logo:
                         
-                    title:req.body.title,
-                    category:req.body.category,
-                    type:req.body.type,
-                    price:req.body.price,
-                    rating:req.body.rating,
-                    Userid:Userid
-                    
-                        })
-                        await new_cart.save()
         
-                }
+                     
+                        
+//                     title:req.body.title,
+//                     category:req.body.category,
+//                     type:req.body.type,
+//                     price:req.body.price,
+//                     rating:req.body.rating,
+//                     Userid:Userid
                     
-                })
+//                         })
+//                         await new_cart.save()
+        
+//                 }
+                    
+//                 })
             
         
     
@@ -88,12 +77,12 @@ cartRouter.post("/post",async (req,res)=>{
 
         
 
-        res.send({"msg" : "added to cart successfully"})
-    } catch (error) {
-        console.log(error)
-        res.send({"err" : "Something went wrong"})
-    }
-    })
+//         res.send({"msg" : "added to cart successfully"})
+//     } catch (error) {
+//         console.log(error)
+//         res.send({"err" : "Something went wrong"})
+//     }
+//     })
 
     
 
