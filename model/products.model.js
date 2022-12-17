@@ -2,11 +2,7 @@
 const mongoose = require("mongoose")
 
 const productSchema = mongoose.Schema({
-    logo:{
-        data:Buffer,
-        contentType:String
-    },
-    
+    logo:String,
     title:String,
     category:String,
     type:String,

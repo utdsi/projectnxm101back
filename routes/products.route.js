@@ -1,5 +1,5 @@
 const express =  require("express")
-const multer = require("multer")
+
 const jwt = require("jsonwebtoken")
 
 const productRouter = express.Router()
@@ -7,18 +7,9 @@ const productRouter = express.Router()
 const {ProductModel} = require("../model/products.model")
 
 
-const Storage = multer.diskStorage({
-    destination:'uploads',
-    filename:(req,file,cb)=>{
-        cb(null,Date.now+file.originalname)
-    }
-})
 
-const upload = multer({
-    storage:Storage
-}).single('logo')
-// /Adminproducts/xyz
-//const jwt = require("jsonwebtoken")
+
+
 
 
 const authen = (req,res,next)=>{
@@ -53,34 +44,22 @@ productRouter.get("/",async(req,res)=>{
 
 productRouter.post("/post",async (req,res)=>{
 
-    const editorID= req.body.editorID
     try {
-            upload(req,res,async(err)=>{
-                if(err){
-                    console.log(err)
-                }else{
-                    const adminProd = new ProductModel({
-                     logo:{
-                        data:req.file.filename,
-                        contentType:'image/png'
-                     },
-                        
-                    title:req.body.title,
-                    category:req.body.category,
-                    type:req.body.type,
-                    price:req.body.price,
-                    rating:req.body.rating,
-                    editorID:editorID
-                     })
-                   await adminProd.save()
-        
-                }   
-                })
-        res.send({"msg" : "product added  successfully"})
+        const payload= req.body
+        console.log(payload)
+
+    const product_admin = new ProductModel(payload)
+
+        await product_admin.save()
     } catch (error) {
+        res.send("error in posting the data")
         console.log(error)
-        res.send({"err" : "Something went wrong"})
     }
+
+    
+
+
+    
     })
 
     productRouter.patch("/update/:productID", async (req, res) => {
