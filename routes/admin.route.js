@@ -34,10 +34,10 @@ adminRouter.post("/login",async(req,res)=>{
 
     try {
         const admin = await AdminModel.find({email})
-        //console.log(admin);
-        const hash_password  = admin[0].password
+        console.log(admin);
+        
         if(admin.length>0){
-            
+            const hash_password  = admin[0].password
             
             if(admin[0].role == "admin"){
                 bcrypt.compare(password, hash_password, function(err, result) {
